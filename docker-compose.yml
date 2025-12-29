@@ -39,14 +39,16 @@ services:
       PHP_MEMORY_LIMIT: 1G
       PHP_UPLOAD_LIMIT: 2G
       NEXTCLOUD_TRUSTED_DOMAINS: ${NEXTCLOUD_TRUSTED_DOMAINS}
+      NEXTCLOUD_APPS: ${NEXTCLOUD_APPS}
+      PERSISTENT_DATA_PATH: ${PERSISTENT_DATA_PATH}
     volumes:
-      - nextcloud-data:/var/www/html/data
-      - nextcloud-config:/var/www/html/config
-      - nextcloud-apps:/var/www/html/custom_apps
+      - ${PERSISTENT_DATA_PATH}/data:/var/www/html/data
+      - ${PERSISTENT_DATA_PATH}/config:/var/www/html/config
+      - ${PERSISTENT_DATA_PATH}/custom_apps:/var/www/html/custom_apps
+      - ${PERSISTENT_DATA_PATH}/themes:/var/www/html/themes
+
+      - ./hooks:/docker-entrypoint-hooks.d
 
 volumes:
-  nextcloud-data:
-  nextcloud-config:
-  nextcloud-apps:
   postgres:
   redis:
